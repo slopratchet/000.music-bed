@@ -1,0 +1,91 @@
+{
+  "1": {
+    "inputs": {
+      "model_path": "yue/YuE-s1-7B-anneal-en-exl2",
+      "batch_size": 1,
+      "cpu_offload": true
+    },
+    "class_type": "YuEStage1Loader",
+    "_meta": {
+      "title": "Stage 1 EXL2 Model Loader (Low VRAM)"
+    }
+  },
+  "2": {
+    "inputs": {
+      "model_path": "yue/YuE-s2-1B-general-exl2",
+      "batch_size": 2
+    },
+    "class_type": "YuEStage2Loader",
+    "_meta": {
+      "title": "Stage 2 Model Loader"
+    }
+  },
+  "6": {
+    "inputs": {
+      "file_path": "genre.txt"
+    },
+    "class_type": "LoadTextFile",
+    "_meta": {
+      "title": "Load Genre Text"
+    }
+  },
+  "7": {
+    "inputs": {
+      "file_path": "lyrics.txt"
+    },
+    "class_type": "LoadTextFile",
+    "_meta": {
+      "title": "Load Lyrics Text"
+    }
+  },
+  "3": {
+    "inputs": {
+      "genre_text": [
+        "6",
+        0
+      ],
+      "lyrics_text": [
+        "7",
+        0
+      ],
+      "stage1_model": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "YuEPrompt",
+    "_meta": {
+      "title": "YuE Prompts (Genre & Lyrics)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "audio_file": "000.wav",
+      "stage2_model": [
+        "2",
+        0
+      ],
+      "stage1_output": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "YuEAudioPrompt",
+    "_meta": {
+      "title": "Audio Input Conditioning"
+    }
+  },
+  "5": {
+    "inputs": {
+      "filename_prefix": "yue_output",
+      "audio_data": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "SaveAudio",
+    "_meta": {
+      "title": "Save Output Audio"
+    }
+  }
+}

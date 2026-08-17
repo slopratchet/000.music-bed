@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+
+# ComfyUI Portable Environment
+ComfyUI_windows_portable/
+ComfyUI_windows_portable_nvidia_cu121_or_cpu.7z
